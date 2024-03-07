@@ -2,7 +2,7 @@ import '../entities/car_space_entity.dart';
 import '../repository/car_spaces_respository.dart';
 
 abstract class IGetCarSpacesUsecase {
-  Future<List<CarSpaceEntity>> call();
+  Future<List<CarSpaceEntity>?> call();
 }
 
 class GetCarSpacesUsecase implements IGetCarSpacesUsecase {
@@ -11,5 +11,6 @@ class GetCarSpacesUsecase implements IGetCarSpacesUsecase {
   GetCarSpacesUsecase(this._repository);
 
   @override
-  Future<List<CarSpaceEntity>> call() async => await _repository.getCarSpaces();
+  Future<List<CarSpaceEntity>?> call() async =>
+      await _repository.getCarSpaces();
 }
