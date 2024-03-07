@@ -17,7 +17,7 @@ class BottomNavibarWidget extends StatelessWidget {
       onTap: onTabTapped,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.car_repair),
           label: 'Vagas',
         ),
         BottomNavigationBarItem(

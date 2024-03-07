@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/widgets/bottom_navibar_widget.dart';
+import 'views/about/about_view.dart';
+import 'views/car_spaces/car_spaces_view.dart';
+import 'views/historic/historic_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,30 +17,15 @@ class HomePageState extends State<HomePage> {
   final PageController _pageController = PageController(initialPage: 0);
 
   final _buildView = <Widget>[
-    Container(
-      color: Colors.red,
-      child: const Center(
-        child: Text('Vagas'),
-      ),
-    ),
-    Container(
-      color: Colors.green,
-      child: const Center(
-        child: Text('Histórico'),
-      ),
-    ),
-    Container(
-      color: Colors.blue,
-      child: const Center(
-        child: Text('Sobre'),
-      ),
-    ),
+    const CarSpacesView(),
+    const HistoricView(),
+    const AboutView(),
   ];
 
   int _currentView(int index) {
     setState(() => _currentIndex = index);
     _pageController.animateToPage(
-      index,
+      _currentIndex,
       duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
