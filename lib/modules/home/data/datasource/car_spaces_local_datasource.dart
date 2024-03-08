@@ -6,7 +6,7 @@ import '../models/car_space_model.dart';
 
 abstract class ICarSpacesLocalDatasource {
   Future<List<CarSpaceModel>?> get();
-  Future<void> save(String key, String value);
+  Future<void> save(String key, dynamic value);
 }
 
 class CarSpacesLocalDatasource extends ICarSpacesLocalDatasource {
@@ -28,9 +28,9 @@ class CarSpacesLocalDatasource extends ICarSpacesLocalDatasource {
   }
 
   @override
-  Future<void> save(String key, String value) async {
+  Future<void> save(String key, dynamic value) async {
     try {
-      final response = await storageClient.save(key, value);
+      await storageClient.save(key, value);
     } on Exception catch (error) {
       throw LocalDatasourceException(exception: error);
     }

@@ -12,5 +12,5 @@ class SaveCarSpacesUsecase implements ISaveCarSpacesUsecase {
 
   @override
   Future<void> call(String key, List<CarSpaceEntity>? spaces) async =>
-      await _repository.saveCarSpaces(key, spaces.toString());
+      await _repository.saveCarSpaces(key, spaces);
 }

@@ -43,18 +43,22 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
             controller: _pageController,
             onPageChanged: _currentView,
             children: <Widget>[
-              viewModel.state.spaceList.isNotEmpty
-                  ? CarSpacesView(
-                      spacesList: viewModel.state.spaceList,
+              viewModel.state.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
                     )
-                  : Container(
-                      color: Colors.white,
-                      child: Center(
-                        child: ConfigSpacesWidget(
-                          onButtonSave: viewModel.saveSpaces,
+                  : viewModel.state.spaceList.isNotEmpty
+                      ? CarSpacesView(
+                          spacesList: viewModel.state.spaceList,
+                        )
+                      : Container(
+                          color: Colors.white,
+                          child: Center(
+                            child: ConfigSpacesWidget(
+                              onButtonSave: viewModel.saveSpaces,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
               const HistoricView(),
               const AboutView(),
             ],

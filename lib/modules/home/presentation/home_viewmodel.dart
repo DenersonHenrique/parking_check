@@ -16,10 +16,10 @@ class HomeViewModel extends ViewModel<HomeState> {
   @override
   void initViewModel() {
     super.initViewModel();
-    featchSpaceList();
+    fetchSpaceList();
   }
 
-  void featchSpaceList() async {
+  void fetchSpaceList() async {
     emit(state.copyWith(isLoading: true));
 
     try {
@@ -39,7 +39,7 @@ class HomeViewModel extends ViewModel<HomeState> {
 
     try {
       generateEntityList(count);
-      final result = await _saveCarSpacesUsecase(key, state.spaceList);
+      await _saveCarSpacesUsecase(key, state.spaceList);
     } catch (error) {
       emit(state.copyWith(hasError: true));
     }
@@ -55,7 +55,7 @@ class HomeViewModel extends ViewModel<HomeState> {
         CarSpaceEntity(
           id: index + 1,
           number: '${index + 1}',
-          isAvailable: false,
+          isAvailable: true,
           vehicle: null,
         ),
       );

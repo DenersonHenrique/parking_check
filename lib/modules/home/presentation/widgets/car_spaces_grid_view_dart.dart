@@ -26,7 +26,7 @@ class CarSpacesGridWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: CarSpaceItemWidget(
-            space: space.number!,
+            space: space,
           ),
         );
       },

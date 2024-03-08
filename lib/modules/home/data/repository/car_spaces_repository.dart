@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import '../../domain/entities/car_space_entity.dart';
 import '../../domain/repository/car_spaces_respository.dart';
 import '../datasource/car_spaces_local_datasource.dart';
+import '../models/car_space_model.dart';
 
 class CarSpacesRepository implements ICarSpacesRepository {
   final ICarSpacesLocalDatasource _carSpacesLocalDatasource;
@@ -14,8 +17,9 @@ class CarSpacesRepository implements ICarSpacesRepository {
   }
 
   @override
-  Future<void> saveCarSpaces(String key, String value) async {
-    final response = await _carSpacesLocalDatasource.save(key, value);
+  Future<void> saveCarSpaces(String key, List<CarSpaceEntity>? value) async {
+    final list = jsonEncode(value?.map(CarSpaceModel.fromEntity).toList());
+    final response = await _carSpacesLocalDatasource.save(key, list);
     return response;
   }
 }

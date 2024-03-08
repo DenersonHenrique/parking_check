@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/car_space_entity.dart';
+
 class CarSpaceItemWidget extends StatelessWidget {
-  final String space;
+  final CarSpaceEntity space;
 
   const CarSpaceItemWidget({
     super.key,
@@ -14,8 +16,8 @@ class CarSpaceItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            getColorType(type: 'Grass')!,
-            getColorType(type: 'Grass')!.withOpacity(0.7),
+            getColorType(isAvailable: space.isAvailable)!,
+            getColorType(isAvailable: space.isAvailable)!.withOpacity(0.7),
           ],
         ),
         borderRadius: const BorderRadius.all(
@@ -98,62 +100,14 @@ class CarSpaceItemWidget extends StatelessWidget {
   }
 
   static Color? getColorType({
-    required String type,
+    required bool isAvailable,
   }) {
-    switch (type) {
-      case 'Normal':
-        return Colors.brown[400];
-
-      case 'Fire':
+    switch (isAvailable) {
+      case false:
         return Colors.red;
 
-      case 'Water':
-        return Colors.blue;
-
-      case 'Grass':
+      case true:
         return Colors.green;
-
-      case 'Electric':
-        return Colors.amber;
-
-      case 'Ice':
-        return Colors.cyanAccent[400];
-
-      case 'Fighting':
-        return Colors.orange;
-
-      case 'Poison':
-        return Colors.purple;
-
-      case 'Ground':
-        return Colors.orange[300];
-
-      case 'Flying':
-        return Colors.indigo[200];
-
-      case 'Psychic':
-        return Colors.pink;
-
-      case 'Bug':
-        return Colors.lightGreen[500];
-
-      case 'Rock':
-        return Colors.grey;
-
-      case 'Ghost':
-        return Colors.indigo[400];
-
-      case 'Dark':
-        return Colors.brown;
-
-      case 'Dragon':
-        return Colors.indigo[800];
-
-      case 'Steel':
-        return Colors.blueGrey;
-
-      case 'Fairy':
-        return Colors.pinkAccent[100];
 
       default:
         return Colors.grey;

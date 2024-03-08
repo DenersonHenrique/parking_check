@@ -13,7 +13,7 @@ class CarSpaceModel extends CarSpaceEntity {
 
   factory CarSpaceModel.fromMap(Map<String, dynamic> map) => CarSpaceModel(
         id: map['id'],
-        number: map['number'],
+        number: map['num'],
         isAvailable: map['isAvailable'],
         vehicle: map['vehicle'],
       );
