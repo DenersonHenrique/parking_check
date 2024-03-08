@@ -10,12 +10,7 @@ class AppModule extends Module {
   @override
   void binds(i) {
     i.addLazySingleton<SharedPreferences>(SharedPreferences.getInstance);
-
-    i.addSingleton<IStorageClient>(StorageAdapter.new);
-
-    // i.addSingleton<IStorageClient<String>>(
-    //   StorageAdapter.new,
-    // );
+    i.addSingleton<IStorageClient<String>>(StorageAdapter.new);
   }
 
   @override
