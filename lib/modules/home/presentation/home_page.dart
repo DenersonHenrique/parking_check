@@ -46,7 +46,7 @@ class HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavibarWidget(
         currentIndex: _currentIndex,
-        onTabTapped: (index) => _currentView(index),
+        onTabTapped: _currentView,
       ),
     );
   }
