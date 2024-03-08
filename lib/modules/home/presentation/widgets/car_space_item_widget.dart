@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CarSpaceItemWidget extends StatelessWidget {
   final String space;
 

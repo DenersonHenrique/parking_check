@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../commons/helpers/presentation/mvvm/mvvm.dart';
 import '../../../shared/widgets/bottom_navibar_widget.dart';
+import '../../../shared/widgets/configure_spaces_widget.dart';
+import 'home_viewmodel.dart';
 import 'views/about/about_view.dart';
 import 'views/car_spaces/car_spaces_view.dart';
 import 'views/historic/historic_view.dart';
@@ -12,15 +15,9 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends ViewState<HomePage, HomeViewModel> {
   int _currentIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
-
-  final _buildView = <Widget>[
-    const CarSpacesView(),
-    const HistoricView(),
-    const AboutView(),
-  ];
 
   int _currentView(int index) {
     setState(() => _currentIndex = index);
@@ -39,10 +36,30 @@ class HomePageState extends State<HomePage> {
         title: const Text('Meu estacionamento'),
         centerTitle: true,
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: _currentView,
-        children: _buildView,
+      body: ViewModelBuilder(
+        viewModel: viewModel,
+        builder: (context, state) {
+          return PageView(
+            controller: _pageController,
+            onPageChanged: _currentView,
+            children: <Widget>[
+              viewModel.state.spaceList.isNotEmpty
+                  ? CarSpacesView(
+                      spacesList: viewModel.state.spaceList,
+                    )
+                  : Container(
+                      color: Colors.white,
+                      child: Center(
+                        child: ConfigSpacesWidget(
+                          onButtonSave: viewModel.saveSpaces,
+                        ),
+                      ),
+                    ),
+              const HistoricView(),
+              const AboutView(),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: BottomNavibarWidget(
         currentIndex: _currentIndex,

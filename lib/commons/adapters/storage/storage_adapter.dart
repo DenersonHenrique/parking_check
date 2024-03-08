@@ -31,4 +31,7 @@ class StorageAdapter extends IStorageClient<String> {
   FutureOr<void> save(String key, String value) {
     return _preferences.setString(key, value);
   }
+
+  @override
+  FutureOr readKey() => _preferences.getKeys();
 }

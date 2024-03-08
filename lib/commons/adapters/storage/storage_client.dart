@@ -25,6 +25,11 @@ abstract class IStorageClient<T> {
   /// Clear all the data from storage
   FutureOr<void> clear() {}
 
+  ///
+  /// Fetch a key.
+  ///
+  FutureOr<dynamic> readKey();
+
   /// Returns a [ValueListenable] which notifies its listeners when an entry
   /// in the box changes.
   ///

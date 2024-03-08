@@ -12,4 +12,10 @@ class CarSpacesRepository implements ICarSpacesRepository {
     final response = await _carSpacesLocalDatasource.get();
     return response;
   }
+
+  @override
+  Future<void> saveCarSpaces(String key, String value) async {
+    final response = await _carSpacesLocalDatasource.save(key, value);
+    return response;
+  }
 }

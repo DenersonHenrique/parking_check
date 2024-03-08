@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import '../../../../commons/adapters/storage/storage_client.dart';
+import '../../../../commons/helpers/errors/local_errors.dart';
 import '../models/car_space_model.dart';
 
 abstract class ICarSpacesLocalDatasource {
   Future<List<CarSpaceModel>?> get();
+  Future<void> save(String key, String value);
 }
 
 class CarSpacesLocalDatasource extends ICarSpacesLocalDatasource {
@@ -11,8 +15,24 @@ class CarSpacesLocalDatasource extends ICarSpacesLocalDatasource {
   CarSpacesLocalDatasource(this.storageClient);
 
   @override
-  Future<List<CarSpaceModel>?> get() {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future<List<CarSpaceModel>?> get() async {
+    try {
+      final response = await storageClient.read('spaces');
+
+      return (jsonDecode(response) as List)
+          .map((e) => CarSpaceModel.fromMap(e))
+          .toList();
+    } on Exception catch (error) {
+      throw LocalDatasourceException(exception: error);
+    }
+  }
+
+  @override
+  Future<void> save(String key, String value) async {
+    try {
+      final response = await storageClient.save(key, value);
+    } on Exception catch (error) {
+      throw LocalDatasourceException(exception: error);
+    }
   }
 }

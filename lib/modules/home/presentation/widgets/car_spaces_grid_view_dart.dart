@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/car_space_entity.dart';
 import 'car_space_item_widget.dart';
 
 class CarSpacesGridWidget extends StatelessWidget {
-  final List<String> spacesList;
+  final List<CarSpaceEntity> spacesList;
 
   const CarSpacesGridWidget({
     super.key,
@@ -25,7 +26,7 @@ class CarSpacesGridWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: CarSpaceItemWidget(
-            space: space,
+            space: space.number!,
           ),
         );
       },
