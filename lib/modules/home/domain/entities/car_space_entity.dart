@@ -11,9 +11,21 @@ class CarSpaceEntity extends Equatable {
   const CarSpaceEntity({
     required this.id,
     required this.number,
-    this.isAvailable = false,
+    this.isAvailable = true,
     this.vehicle,
   });
+
+  CarSpaceEntity copyWith({
+    bool? isAvailable,
+    VehicleEntity? vehicle,
+  }) {
+    return CarSpaceEntity(
+      id: id,
+      number: number,
+      isAvailable: isAvailable ?? false,
+      vehicle: vehicle ?? vehicle,
+    );
+  }
 
   @override
   List<Object?> get props => [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/car_space_entity.dart';
-import '../../widgets/car_spaces_grid_view_dart.dart';
+import 'widgets/car_spaces_grid_view_dart.dart';
 
 class CarSpacesView extends StatelessWidget {
   final List<CarSpaceEntity> spacesList;
