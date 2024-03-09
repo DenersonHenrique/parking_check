@@ -45,20 +45,24 @@ class CarSpaceItemWidget extends StatelessWidget {
                 child: Text(
                   'Vaga ${space.number!}',
                   style: const TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                     fontFamily: 'Google',
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(
-              //     horizontal: 5.0,
-              //     vertical: 5.0,
-              //   ),
-              //   child: PokeItemTypeWidget(
-              //     types: pokemon.type,
+              // Visibility(
+              //   visible:
+              //       (!space.isAvailable && space.vehicle?.identifier != null),
+              //   child: Padding(
+              //     padding: const EdgeInsets.symmetric(
+              //       horizontal: 5.0,
+              //       vertical: 5.0,
+              //     ),
+              //     child: CarInfoWidget(
+              //       info: space.vehicle!.identifier!,
+              //     ),
               //   ),
               // ),
             ],

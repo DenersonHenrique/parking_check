@@ -29,3 +29,10 @@ flutter:
     - assets/images/car.png
     - assets/images/placa-estacionamento-estacionar.png
     - assets/images/placa-estacionamento-proibido.png
+
+  fonts:
+    - family: Google
+      fonts:
+        - asset: assets/fonts/ProductSans-Bold.ttf
+        - asset: assets/fonts/ProductSans-Regular.ttf
+          weight: 700

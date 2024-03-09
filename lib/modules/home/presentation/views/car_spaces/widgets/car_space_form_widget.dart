@@ -19,11 +19,12 @@ class SpaceFormWidget extends StatefulWidget {
 }
 
 class _SpaceFormWidgetState extends State<SpaceFormWidget> {
+  late DateTime? inputDate;
+  late DateTime? outputDate;
   final formKey = GlobalKey<FormState>();
   final TextEditingController inputDateController = TextEditingController();
+  final TextEditingController outputDateController = TextEditingController();
   final TextEditingController identifierController = TextEditingController();
-
-  late DateTime? inputDate;
 
   _submit() {
     if (!formKey.currentState!.validate()) {
@@ -31,14 +32,29 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
     }
 
     final updateSpace = widget.space.copyWith(
-      isAvailable: false,
+      isAvailable: !widget.space.isAvailable,
       vehicle: VehicleEntity(
         identifier: identifierController.text,
         input: inputDate,
+        output: outputDateController.text.isNotEmpty ? outputDate : null,
       ),
     );
 
     widget.onSubmit(updateSpace);
+    Navigator.of(context).pop();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (!widget.space.isAvailable) {
+      identifierController.text = '${widget.space.vehicle?.identifier}';
+      inputDateController.text = DateFormat('dd/MM/yyyy').format(
+        widget.space.vehicle!.input!,
+      );
+      inputDate = widget.space.vehicle?.input;
+    }
   }
 
   @override
@@ -52,58 +68,118 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
         ),
         child: Column(
           children: [
-            Text('Editar vaga ${widget.space.number}'),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                'Atualizar vaga - ${widget.space.number}',
+                style: const TextStyle(
+                  fontSize: 22.0,
+                  fontFamily: 'Google',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             Form(
               key: formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextFormField(
-                    maxLength: 7,
-                    controller: identifierController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: TextFormField(
+                      maxLength: 7,
+                      controller: identifierController,
+                      readOnly: !widget.space.isAvailable,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        labelText: 'Placa',
                       ),
-                      labelText: 'Placa',
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
-                      return null;
-                    },
                   ),
                   const SizedBox(height: 10),
-                  TextFormField(
-                    controller: inputDateController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: TextFormField(
+                      controller: inputDateController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        labelText: 'Data de Entrada',
                       ),
-                      labelText: 'Data e Hora',
-                    ),
-                    onTap: () async {
-                      inputDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100),
-                      );
-                      if (inputDate != null) {
-                        String formattedDate = DateFormat('dd/MM/yyyy').format(
-                          inputDate!,
-                        );
+                      onTap: () async {
+                        if (widget.space.isAvailable) {
+                          inputDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100),
+                          );
+                          if (inputDate != null) {
+                            String formattedDate =
+                                DateFormat('dd/MM/yyyy').format(
+                              inputDate!,
+                            );
 
-                        inputDateController.text = formattedDate.toString();
-                      }
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Campo obrigatório';
-                      }
-                      return null;
-                    },
+                            inputDateController.text = formattedDate.toString();
+                          }
+                        }
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Visibility(
+                    visible: !widget.space.isAvailable,
+                    child: TextFormField(
+                      controller: outputDateController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        labelText: 'Data de Saída',
+                      ),
+                      onTap: () async {
+                        if (!widget.space.isAvailable) {
+                          outputDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100),
+                          );
+                          if (outputDate != null) {
+                            String formattedDate =
+                                DateFormat('dd/MM/yyyy').format(
+                              outputDate!,
+                            );
+
+                            outputDateController.text =
+                                formattedDate.toString();
+                          }
+                        }
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -118,6 +194,11 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
                       backgroundColor: const Color(0xFF00AE9D),
                       foregroundColor: Colors.white,
                       alignment: Alignment.center,
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.w600,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           6.0,
@@ -135,17 +216,21 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
                       backgroundColor: const Color(0xFF00AE9D),
                       foregroundColor: Colors.white,
                       alignment: Alignment.center,
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.w600,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           6.0,
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      _submit();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Salvar'),
+                    onPressed: _submit,
+                    child: widget.space.isAvailable
+                        ? const Text('Adicionar')
+                        : const Text('Remover'),
                   ),
                 ),
               ],

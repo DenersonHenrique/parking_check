@@ -33,7 +33,14 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meu estacionamento'),
+        title: const Text(
+          'Meu estacionamento',
+          style: TextStyle(
+            fontSize: 22.0,
+            fontFamily: 'Google',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         centerTitle: true,
       ),
       body: ViewModelBuilder(

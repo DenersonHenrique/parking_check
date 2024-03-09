@@ -15,17 +15,30 @@ class BottomNavibarWidget extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: currentIndex,
       onTap: onTabTapped,
+      selectedFontSize: 15,
+      unselectedFontSize: 15,
+      selectedItemColor: Colors.black,
+      backgroundColor: Colors.green[50],
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.car_repair),
+          icon: Icon(
+            Icons.car_repair,
+            size: 35,
+          ),
           label: 'Vagas',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Icon(
+            Icons.history,
+            size: 35,
+          ),
           label: 'Histórico',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(
+            Icons.info_outline,
+            size: 35,
+          ),
           label: 'Sobre',
         ),
       ],
