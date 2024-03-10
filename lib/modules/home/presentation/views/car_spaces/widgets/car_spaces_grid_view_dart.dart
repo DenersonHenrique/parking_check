@@ -66,6 +66,6 @@ class _CarSpacesGridWidgetState extends State<CarSpacesGridWidget> {
       });
     }
 
-    // widget.updateStorageSpaces(widget.spacesList);
+    widget.updateStorageSpaces(widget.spacesList);
   }
 }

@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 class VehicleEntity extends Equatable {
   final String? identifier;
-  final DateTime? input;
-  final DateTime? output;
+  final String? input;
+  final String? output;
 
   const VehicleEntity({
     required this.identifier,
@@ -17,4 +17,6 @@ class VehicleEntity extends Equatable {
         input,
         output,
       ];
+
+  inputtoIso8601String() {}
 }

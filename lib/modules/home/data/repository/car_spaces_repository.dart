@@ -35,10 +35,7 @@ class CarSpacesRepository implements ICarSpacesRepository {
   @override
   Future<void> saveCarSpaces(String key, List<CarSpaceEntity>? value) async {
     final teste = value?.map(CarSpaceModel.fromEntity).toList();
-    final list = jsonEncode(
-      value?.map(CarSpaceModel.fromEntity).toList(),
-      toEncodable: myEncode,
-    );
+    final list = jsonEncode(value?.map(CarSpaceModel.fromEntity).toList());
     print(list);
     final response = await _carSpacesLocalDatasource.save(key, list);
     return response;

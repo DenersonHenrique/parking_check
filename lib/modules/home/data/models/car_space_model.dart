@@ -15,7 +15,9 @@ class CarSpaceModel extends CarSpaceEntity {
         id: map['id'],
         number: map['num'],
         isAvailable: map['isAvailable'],
-        vehicle: map['vehicle'],
+        vehicle: map['vehicle'] != null
+            ? VehicleModel.fromMap(map['vehicle'])
+            : null,
       );
 
   Map<String, dynamic> toJson() {

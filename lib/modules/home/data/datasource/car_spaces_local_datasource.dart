@@ -30,7 +30,6 @@ class CarSpacesLocalDatasource extends ICarSpacesLocalDatasource {
   @override
   Future<void> save(String key, dynamic value) async {
     try {
-      await storageClient.clear();
       await storageClient.save(key, value);
     } on Exception catch (error) {
       throw LocalDatasourceException(exception: error);

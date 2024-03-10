@@ -35,8 +35,10 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
       isAvailable: !widget.space.isAvailable,
       vehicle: VehicleEntity(
         identifier: identifierController.text,
-        input: inputDate,
-        output: outputDateController.text.isNotEmpty ? outputDate : null,
+        input: inputDate?.toIso8601String(),
+        output: outputDateController.text.isNotEmpty
+            ? outputDate?.toIso8601String()
+            : null,
       ),
     );
 
@@ -51,9 +53,9 @@ class _SpaceFormWidgetState extends State<SpaceFormWidget> {
     if (!widget.space.isAvailable) {
       identifierController.text = '${widget.space.vehicle?.identifier}';
       inputDateController.text = DateFormat('dd/MM/yyyy').format(
-        widget.space.vehicle!.input!,
+        DateTime.parse(widget.space.vehicle!.input!),
       );
-      inputDate = widget.space.vehicle?.input;
+      inputDate = DateTime.parse(widget.space.vehicle!.input!);
     }
   }
 
