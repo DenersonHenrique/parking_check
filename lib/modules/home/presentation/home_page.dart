@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../commons/helpers/presentation/mvvm/mvvm.dart';
 import '../../../shared/widgets/bottom_navibar_widget.dart';
 import '../../../shared/widgets/configure_spaces_widget.dart';
+import '../domain/entities/car_space_entity.dart';
 import 'home_viewmodel.dart';
 import 'views/about/about_view.dart';
 import 'views/car_spaces/car_spaces_view.dart';
@@ -23,10 +24,14 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
     setState(() => _currentIndex = index);
     _pageController.animateToPage(
       _currentIndex,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.ease,
     );
     return _currentIndex;
+  }
+
+  void updateStorage(List<CarSpaceEntity> spaceList) {
+    viewModel.updateSpaces('spaces', spaceList);
   }
 
   @override
@@ -57,6 +62,7 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
                   : viewModel.state.spaceList.isNotEmpty
                       ? CarSpacesView(
                           spacesList: viewModel.state.spaceList,
+                          updateStorageSpaces: updateStorage,
                         )
                       : Container(
                           color: Colors.white,

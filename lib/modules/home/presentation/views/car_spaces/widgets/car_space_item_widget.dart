@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/car_space_entity.dart';
+import 'car_info_widget.dart';
 
 class CarSpaceItemWidget extends StatelessWidget {
   final CarSpaceEntity space;
@@ -52,19 +53,15 @@ class CarSpaceItemWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              // Visibility(
-              //   visible:
-              //       (!space.isAvailable && space.vehicle?.identifier != null),
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(
-              //       horizontal: 5.0,
-              //       vertical: 5.0,
-              //     ),
-              //     child: CarInfoWidget(
-              //       info: space.vehicle!.identifier!,
-              //     ),
-              //   ),
-              // ),
+              !space.isAvailable ? Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5.0,
+                  vertical: 5.0,
+                ),
+                child: CarInfoWidget(
+                  info: space.vehicle!.identifier!,
+                ),
+              ) : Container(),
             ],
           ),
           Align(

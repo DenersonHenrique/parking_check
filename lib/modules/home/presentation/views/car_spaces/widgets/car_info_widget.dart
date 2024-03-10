@@ -22,7 +22,7 @@ class CarInfoWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: Text(
-              info.trim(),
+              info.trim().toUpperCase(),
               style: const TextStyle(
                 fontFamily: 'Google',
                 fontSize: 16,

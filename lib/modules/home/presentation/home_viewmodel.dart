@@ -63,4 +63,16 @@ class HomeViewModel extends ViewModel<HomeState> {
 
     emit(state.copyWith(spaceList: list));
   }
+
+  void updateSpaces(String key, List<CarSpaceEntity> spaceList) async {
+    emit(state.copyWith(isLoading: true));
+
+    try {
+      await _saveCarSpacesUsecase(key, spaceList);
+    } catch (error) {
+      emit(state.copyWith(hasError: true));
+    }
+
+    emit(state.copyWith(isLoading: false));
+  }
 }

@@ -6,10 +6,12 @@ import 'car_space_item_widget.dart';
 
 class CarSpacesGridWidget extends StatefulWidget {
   final List<CarSpaceEntity> spacesList;
+  final void Function(List<CarSpaceEntity>) updateStorageSpaces;
 
   const CarSpacesGridWidget({
     super.key,
     required this.spacesList,
+    required this.updateStorageSpaces,
   });
 
   @override
@@ -63,5 +65,7 @@ class _CarSpacesGridWidgetState extends State<CarSpacesGridWidget> {
         widget.spacesList[index] = space;
       });
     }
+
+    // widget.updateStorageSpaces(widget.spacesList);
   }
 }

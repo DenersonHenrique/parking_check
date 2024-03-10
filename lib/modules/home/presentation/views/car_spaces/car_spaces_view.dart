@@ -5,10 +5,12 @@ import 'widgets/car_spaces_grid_view_dart.dart';
 
 class CarSpacesView extends StatelessWidget {
   final List<CarSpaceEntity> spacesList;
+  final void Function(List<CarSpaceEntity>) updateStorageSpaces;
 
   const CarSpacesView({
     super.key,
     required this.spacesList,
+    required this.updateStorageSpaces,
   });
 
   @override
@@ -17,6 +19,7 @@ class CarSpacesView extends StatelessWidget {
       color: Colors.white,
       child: CarSpacesGridWidget(
         spacesList: spacesList,
+        updateStorageSpaces: updateStorageSpaces,
       ),
     );
   }
