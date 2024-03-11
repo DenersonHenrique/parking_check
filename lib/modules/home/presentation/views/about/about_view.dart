@@ -6,9 +6,11 @@ class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
-      child: const Center(
-        child: Text('Sobre'),
+      color: Colors.white,
+      child: const Column(
+        children: <Widget>[
+          Text('Sobre'),
+        ],
       ),
     );
   }

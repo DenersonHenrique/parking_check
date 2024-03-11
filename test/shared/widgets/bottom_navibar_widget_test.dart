@@ -25,7 +25,7 @@ void main() {
     expect(currentIndex, 0);
 
     // Tap on the second item
-    await tester.tap(find.byIcon(Icons.search));
+    await tester.tap(find.byIcon(Icons.history));
     await tester.pump();
 
     // Verify that the current index updates after tapping

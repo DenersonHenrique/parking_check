@@ -1,61 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class TimelineItem {
-  final String title;
-  final String description;
+import '../../../../../../commons/helpers/constants/consts_app.dart';
+import '../../../../domain/entities/car_space_entity.dart';
 
-  TimelineItem({required this.title, required this.description});
-}
+class VerticalTimelineWidget extends StatelessWidget {
+  final List<CarSpaceEntity> spaceList;
 
-class VerticalTimeline extends StatelessWidget {
-  // final List<TimelineItem> items;
-
-  final List<TimelineItem> items = [
-  TimelineItem(title: 'Event 1', description: 'Description of Event 1'),
-  TimelineItem(title: 'Event 2', description: 'Description of Event 2'),
-  TimelineItem(title: 'Event 3', description: 'Description of Event 3'),
-];
-
-  VerticalTimeline({
+  const VerticalTimelineWidget({
     super.key,
-    // required this.items,
+    required this.spaceList,
   });
 
   @override
   Widget build(BuildContext context) {
+    final List<CarSpaceEntity> historicList =
+        spaceList.where((element) => !element.isAvailable).toList();
+
     return ListView.builder(
-      itemCount: items.length,
+      itemCount: historicList.length,
       itemBuilder: (context, index) {
-        final item = items[index];
+        final item = historicList[index];
         return TimelineTile(
           alignment: TimelineAlign.manual,
           lineXY: 0.2,
           isFirst: index == 0,
-          isLast: index == items.length - 1,
+          isLast: index == historicList.length - 1,
           indicatorStyle: const IndicatorStyle(
             width: 20,
             color: Colors.blue,
           ),
-          // startChild: Container(
-          //   padding: const EdgeInsets.symmetric(vertical: 10),
-          //   child: Text(
-          //     item.title,
-          //     style: const TextStyle(
-          //       fontWeight: FontWeight.bold,
-          //       fontSize: 16,
-          //     ),
-          //   ),
-          // ),
           endChild: Container(
             padding: const EdgeInsets.symmetric(
               vertical: 10,
               horizontal: 20,
             ),
-            child: Text(
-              item.description,
-              style: const TextStyle(
-                fontSize: 14,
+            child: Card(
+              color: item.isAvailable
+                  ? ConstsApp.getColorType(isAvailable: item.isAvailable)!
+                      .withOpacity(0.7)
+                  : ConstsApp.getColorType(isAvailable: item.isAvailable)!
+                      .withOpacity(0.7),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Vaga ${item.number!}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      'Placa: ${item.vehicle?.identifier!.toUpperCase()}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      'Data Entrada: ${DateFormat('dd/MM/yyyy').format(
+                        DateTime.parse(item.vehicle!.input!),
+                      )}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    item.vehicle!.output != null
+                        ? Text(
+                            'Data Entrada: ${DateFormat('dd/MM/yyyy').format(
+                              DateTime.parse(item.vehicle!.output!),
+                            )}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
               ),
             ),
           ),

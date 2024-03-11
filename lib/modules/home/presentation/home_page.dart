@@ -72,7 +72,9 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
                             ),
                           ),
                         ),
-              const HistoricView(),
+              HistoricView(
+                spaceList: viewModel.state.spaceList,
+              ),
               const AboutView(),
             ],
           );
