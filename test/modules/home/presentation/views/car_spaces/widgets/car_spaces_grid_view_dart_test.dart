@@ -8,7 +8,7 @@ import 'package:parking_check/modules/home/presentation/views/car_spaces/widgets
 import 'package:parking_check/modules/home/presentation/views/car_spaces/widgets/car_spaces_grid_view_dart.dart';
 
 class MockFunction extends Mock {
-  void call(List<CarSpaceEntity> spacesList);
+  void call(String key, List<CarSpaceEntity> spacesList);
 }
 
 void main() {

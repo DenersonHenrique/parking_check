@@ -30,8 +30,8 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
     return _currentIndex;
   }
 
-  void updateStorage(List<CarSpaceEntity> spaceList) {
-    viewModel.updateSpaces('spaces', spaceList);
+  void updateStorage(String key, List<CarSpaceEntity> spaceList) {
+    viewModel.updateSpaces(key, spaceList);
   }
 
   @override
@@ -73,7 +73,7 @@ class HomePageState extends ViewState<HomePage, HomeViewModel> {
                           ),
                         ),
               HistoricView(
-                spaceList: viewModel.state.spaceList,
+                historic: viewModel.state.spaceList,
               ),
               const AboutView(),
             ],

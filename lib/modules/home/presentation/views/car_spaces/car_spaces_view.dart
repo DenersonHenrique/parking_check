@@ -5,7 +5,7 @@ import 'widgets/car_spaces_grid_view_dart.dart';
 
 class CarSpacesView extends StatelessWidget {
   final List<CarSpaceEntity> spacesList;
-  final void Function(List<CarSpaceEntity>) updateStorageSpaces;
+  final void Function(String, List<CarSpaceEntity>) updateStorageSpaces;
 
   const CarSpacesView({
     super.key,

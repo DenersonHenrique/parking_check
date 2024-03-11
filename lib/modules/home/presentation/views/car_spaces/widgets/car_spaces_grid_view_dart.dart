@@ -6,7 +6,7 @@ import 'car_space_item_widget.dart';
 
 class CarSpacesGridWidget extends StatefulWidget {
   final List<CarSpaceEntity> spacesList;
-  final void Function(List<CarSpaceEntity>) updateStorageSpaces;
+  final void Function(String, List<CarSpaceEntity>) updateStorageSpaces;
 
   const CarSpacesGridWidget({
     super.key,
@@ -50,13 +50,15 @@ class _CarSpacesGridWidgetState extends State<CarSpacesGridWidget> {
       builder: (_) {
         return SpaceFormWidget(
           space: space,
-          onSubmit: _updateSpace,
+          onSubmit: _updateStorage,
         );
       },
     );
   }
 
-  _updateSpace(CarSpaceEntity space) {
+  _updateStorage(CarSpaceEntity space) {
+    final List<CarSpaceEntity> historicList = <CarSpaceEntity>[];
+
     int index =
         widget.spacesList.indexWhere((element) => element.id == space.id);
 
@@ -66,6 +68,9 @@ class _CarSpacesGridWidgetState extends State<CarSpacesGridWidget> {
       });
     }
 
-    widget.updateStorageSpaces(widget.spacesList);
+    historicList.add(space);
+
+    widget.updateStorageSpaces('spaces', widget.spacesList);
+
   }
 }

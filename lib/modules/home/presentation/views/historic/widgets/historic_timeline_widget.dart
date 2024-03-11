@@ -13,10 +13,19 @@ class VerticalTimelineWidget extends StatelessWidget {
     required this.spaceList,
   });
 
+  List<CarSpaceEntity> _filterSpacesWithVehicle(List<CarSpaceEntity> spaces) {
+    final list = spaces
+        .where(
+          (space) => space.vehicle != null && space.vehicle!.identifier != null,
+        )
+        .toList();
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<CarSpaceEntity> historicList =
-        spaceList.where((element) => !element.isAvailable).toList();
+        _filterSpacesWithVehicle(spaceList);
 
     return ListView.builder(
       itemCount: historicList.length,
@@ -39,9 +48,9 @@ class VerticalTimelineWidget extends StatelessWidget {
             child: Card(
               color: item.isAvailable
                   ? ConstsApp.getColorType(isAvailable: item.isAvailable)!
-                      .withOpacity(0.7)
+                      .withOpacity(0.6)
                   : ConstsApp.getColorType(isAvailable: item.isAvailable)!
-                      .withOpacity(0.7),
+                      .withOpacity(0.6),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -50,13 +59,18 @@ class VerticalTimelineWidget extends StatelessWidget {
                     Text(
                       'Vaga ${item.number!}',
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 20.0,
+                        fontFamily: 'Google',
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       'Placa: ${item.vehicle?.identifier!.toUpperCase()}',
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 16.0,
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
@@ -64,7 +78,9 @@ class VerticalTimelineWidget extends StatelessWidget {
                         DateTime.parse(item.vehicle!.input!),
                       )}',
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 16.0,
+                        fontFamily: 'Google',
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     item.vehicle!.output != null
@@ -73,7 +89,9 @@ class VerticalTimelineWidget extends StatelessWidget {
                               DateTime.parse(item.vehicle!.output!),
                             )}',
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 16.0,
+                              fontFamily: 'Google',
+                              fontWeight: FontWeight.w600,
                             ),
                           )
                         : Container(),
