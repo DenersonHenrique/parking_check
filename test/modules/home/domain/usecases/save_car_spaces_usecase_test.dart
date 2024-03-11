@@ -4,11 +4,19 @@ import 'package:parking_check/modules/home/domain/entities/car_space_entity.dart
 import 'package:parking_check/modules/home/domain/repository/car_spaces_respository.dart';
 import 'package:parking_check/modules/home/domain/usecases/save_car_spaces_usecase.dart';
 
+import '../../../../mocks/car_space_entity_mock.dart';
+
 class MockCarSpacesRepository extends Mock implements ICarSpacesRepository {}
 
 void main() {
-  late ICarSpacesRepository repository;
   late ISaveCarSpacesUsecase usecase;
+  late ICarSpacesRepository repository;
+
+  const key = 'spaces_key';
+  final List<CarSpaceEntity> carSpaceList = List.generate(
+    10,
+    (_) => MockCarSpaceEntity.random(),
+  );
 
   setUp(() {
     repository = MockCarSpacesRepository();
@@ -16,29 +24,17 @@ void main() {
   });
 
   group('SaveCarSpacesUsecase', () {
-    test('calls repository with correct parameters', () async {
-      // Arrange
-      const key = 'spaces_key';
-      const spaces = [
-        CarSpaceEntity(id: 1, number: 'A1', isAvailable: true),
-        CarSpaceEntity(id: 2, number: 'A2', isAvailable: false),
-      ];
+    test('Should be calls repository with correct parameters.', () async {
+      await usecase.call(key, carSpaceList);
 
-      // Act
-      await usecase.call(key, spaces);
-
-      // Assert
-      verify(() => repository.saveCarSpaces(key, spaces)).called(1);
+      verify(() => repository.saveCarSpaces(key, carSpaceList)).called(1);
     });
 
-    test('calls repository with null spaces parameter', () async {
-      // Arrange
+    test('Should be calls repository with null spaces parameter.', () async {
       const key = 'spaces_key';
 
-      // Act
       await usecase.call(key, null);
 
-      // Assert
       verify(() => repository.saveCarSpaces(key, null)).called(1);
     });
   });

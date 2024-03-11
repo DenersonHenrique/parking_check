@@ -33,7 +33,7 @@ class CarSpacesRepository implements ICarSpacesRepository {
   }
 
   @override
-  Future<void> saveCarSpaces(String key, List<CarSpaceEntity>? value) async {
+  Future<void>? saveCarSpaces(String key, List<CarSpaceEntity>? value) async {
     final list = jsonEncode(value?.map(CarSpaceModel.fromEntity).toList());
     final response = await _carSpacesLocalDatasource.save(key, list);
     return response;
