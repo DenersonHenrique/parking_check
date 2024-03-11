@@ -25,7 +25,14 @@ class _ConfigSpacesWidgetState extends State<ConfigSpacesWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Insira a quantidade de vagas no estacionamento.'),
+            const Text(
+              'Insira a quantidade total de vagas no estacionamento.',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Google',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 20),
             TextFormField(
               controller: _controller,
@@ -36,8 +43,13 @@ class _ConfigSpacesWidgetState extends State<ConfigSpacesWidget> {
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 labelText: 'Total de vagas',
-                errorText: _isValid ? null : 'Número inválido',
               ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Campo obrigatório';
+                }
+                return null;
+              },
               onChanged: (value) {
                 setState(() {
                   _isValid =

@@ -15,13 +15,9 @@ class HistoricView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: historic.isNotEmpty
-          ? VerticalTimelineWidget(
-              spaceList: historic,
-            )
-          : const Center(
-              child: Text('Sem registro de entrada e saída de veículos.'),
-            ),
+      child: VerticalTimelineWidget(
+        spaceList: historic,
+      ),
     );
   }
 }

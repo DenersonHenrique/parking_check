@@ -31,76 +31,87 @@ class VerticalTimelineWidget extends StatelessWidget {
       itemCount: historicList.length,
       itemBuilder: (context, index) {
         final item = historicList[index];
-        return TimelineTile(
-          alignment: TimelineAlign.manual,
-          lineXY: 0.2,
-          isFirst: index == 0,
-          isLast: index == historicList.length - 1,
-          indicatorStyle: const IndicatorStyle(
-            width: 20,
-            color: Colors.blue,
-          ),
-          endChild: Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 20,
-            ),
-            child: Card(
-              color: item.isAvailable
-                  ? ConstsApp.getColorType(isAvailable: item.isAvailable)!
-                      .withOpacity(0.6)
-                  : ConstsApp.getColorType(isAvailable: item.isAvailable)!
-                      .withOpacity(0.6),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Vaga ${item.number!}',
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontFamily: 'Google',
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Placa: ${item.vehicle?.identifier!.toUpperCase()}',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'Google',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Data Entrada: ${DateFormat('dd/MM/yyyy').format(
-                        DateTime.parse(item.vehicle!.input!),
-                      )}',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'Google',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    item.vehicle!.output != null
-                        ? Text(
+        return historicList.isNotEmpty
+            ? TimelineTile(
+                alignment: TimelineAlign.manual,
+                lineXY: 0.2,
+                isFirst: index == 0,
+                isLast: index == historicList.length - 1,
+                indicatorStyle: const IndicatorStyle(
+                  width: 20,
+                  color: Colors.blue,
+                ),
+                endChild: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 20,
+                  ),
+                  child: Card(
+                    color: item.isAvailable
+                        ? ConstsApp.getColorType(isAvailable: item.isAvailable)!
+                            .withOpacity(0.6)
+                        : ConstsApp.getColorType(isAvailable: item.isAvailable)!
+                            .withOpacity(0.6),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Vaga ${item.number!}',
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Google',
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            'Placa: ${item.vehicle?.identifier!.toUpperCase()}',
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'Google',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
                             'Data Entrada: ${DateFormat('dd/MM/yyyy').format(
-                              DateTime.parse(item.vehicle!.output!),
+                              DateTime.parse(item.vehicle!.input!),
                             )}',
                             style: const TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'Google',
                               fontWeight: FontWeight.w600,
                             ),
-                          )
-                        : Container(),
-                  ],
+                          ),
+                          item.vehicle!.output != null
+                              ? Text(
+                                  'Data Entrada: ${DateFormat('dd/MM/yyyy').format(
+                                    DateTime.parse(item.vehicle!.output!),
+                                  )}',
+                                  style: const TextStyle(
+                                    fontSize: 16.0,
+                                    fontFamily: 'Google',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        );
+              )
+            : const Center(
+                child: Text(
+                  'Sem registro de entrada e saída de veículos.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Google',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
       },
     );
   }

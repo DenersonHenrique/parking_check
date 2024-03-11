@@ -7,10 +7,8 @@ class AboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: const Column(
-        children: <Widget>[
-          Text('Sobre'),
-        ],
+      child: const Center(
+        child: Text('Visualização página da Sobre'),
       ),
     );
   }
